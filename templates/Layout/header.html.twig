@@ -27,12 +27,13 @@
 								<div class="dropdown-divider"></div>
 								<a href="{{ path('admin.categorie.index') }}" class="dropdown-item">Catégorie</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Users</a>
+								<a class="dropdown-item" href="{{ path('admin.user.index')  }}">Users</a>
 							</div>
 						</div>
 					{% endif %}
 					<a href="{{ path('app.logout') }}" class="btn btn-danger">Deconnexion</a>
 				{% else %}
+					<a href="{{ path('app.user.register') }}" class="btn btn-secondary me-2">S'inscrire</a>
 					<a href="{{ path('app.login') }}" class="btn btn-light">Connexion</a>
 				{% endif %}
 			</div>

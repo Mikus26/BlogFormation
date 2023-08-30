@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+	admin des users |
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body %}
+
+	<section class="container-mt-4">
+		<h1>
+
+			<table class="table mt-4">
+
+				<thead>
+					<tr>
+						<td>id</td>
+						<td>nom</td>
+						<td>prénom</td>
+						<td>email</td>
+						<td>role</td>
+						<td>Actions</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						<tr>
+
+							<td>{{ user.id }}</td>
+							<td>{{ user.lastname }}</td>
+							<td>{{ user.firstname }}</td>
+							<td>{{ user.email }}</td>
+							<td>
+								{{ user.roles|json_encode }}
+							</td>
+							<td>
+								<a href="{{ path('admin.user.update', {'id': user.id}) }}" class=" btn btn-secondary">modifier</a>
+								{% include 'Backend/User/_deleteForm.html.twig' %}
+							</td>
+
+						</tr>
+					{% endfor %}
+				</tbody>
+
+			</table>
+		</h1>
+	</section>
+
+{% endblock %}

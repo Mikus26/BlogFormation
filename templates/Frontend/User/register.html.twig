@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Inscription |
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+<section class="contaner mt-4">
+    <h1 class="text-center">Inscription</h1>
+    {% include 'Frontend/User/_form.html.twig' %}
+</section>
+{% endblock %}

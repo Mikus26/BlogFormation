@@ -1,0 +1,13 @@
+include:
+  - UserFixtures.yaml
+  - CategoriesFixtures.yaml
+
+App\Entity\Article:
+  article{1..50}:
+    titre (unique) : <words(1, true)>
+    contenu: <generateLoremContent()>
+    actif: <boolean()>
+    user: "@user*"
+    categories: <numberBetween(1, 4)>x @categorie*
+    createdAt: <generateDateTimeImmutable()>
+    imageFile: <uploadImageArticle()>

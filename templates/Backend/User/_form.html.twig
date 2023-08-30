@@ -1,0 +1,25 @@
+{{  form_start(form, {'attr':{'class': 'form card w-75 mx-auto p-3'}}) }}
+
+{% if form.firstName is defined and form.lastName is defined and form.email is defined %}
+
+<div class="row">
+    <div class="col-md-6">
+    {{ form_row(form.firstName)}}
+    </div>
+    <div class="col-md-6">
+    {{ form_row(form.lastName)}}
+    </div>
+</div>
+{{ form_row(form.email) }}
+
+{% endif %}
+
+{% if form.roles is defined %}
+
+{{form_row(form.roles)}}
+
+{% endif %}
+<div class="text-center" >
+<button type="submit" class="btn btn-primary">modifier</button>
+</div>
+{{ form_end(form) }}
