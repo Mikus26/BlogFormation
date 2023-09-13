@@ -1,0 +1,25 @@
+.form-filter {
+    
+    position: relative;
+
+    .loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform:translate(-50%,-50%);
+        z-index:3;
+
+    }
+
+    &.is-loading::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top:0;
+        z-index:2;
+        background-color: rgba(255, 255, 255, 0.6);
+    }
+
+}

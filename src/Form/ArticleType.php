@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Article;
 use App\Entity\Categorie;
+use App\Form\ArticleImageType;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ArticleType extends AbstractType
 {
@@ -40,14 +42,7 @@ class ArticleType extends AbstractType
                 },
                 'required' => false,
             ])
-            ->add('imageFile', VichImageType::class, [
-                'label' => 'Image:',
-                'required' => false,
-                'allow_delete' => true,
-                'delete_label' => 'Supprimer l\'image',
-                'download_uri' => false,
-                'image_uri' => true,
-            ])
+           
             ->add('contenu', TextareaType::class, [
                 'label' => 'Contenu:',
                 'required' => true,
@@ -59,6 +54,17 @@ class ArticleType extends AbstractType
             ->add('actif', CheckboxType::class, [
                 'label' => 'Actif',
                 'required' => false,
+            ])
+
+            ->add('images', CollectionType::class,[
+                'label' => 'Images',
+                'required' => false,
+                'entry_type' => ArticleImageType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'delete_empty' => true,
+                'by_reference' => false,
             ]);
     }
 

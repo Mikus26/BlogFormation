@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Search\SearchArticle;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
  * @extends ServiceEntityRepository<Article>
@@ -16,7 +19,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class ArticleRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry,
+    private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Article::class);
     }
@@ -55,6 +59,42 @@ class ArticleRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findSearchArticle(SearchArticle $search): PaginationInterface
+    {
+        $query = $this->createQueryBuilder('a')
+        ->select('a','u','c')
+        ->innerJoin('a.user', 'u')
+        ->leftJoin('a.categories', 'c')
+        ->andWhere('a.actif = true');
+
+        if(!empty($search->getTitle()))
+        {
+            $query->andWhere('a.titre LIKE :titre')
+                ->setParameter('titre',"%{$search->getTitle()}%");
+
+        
+        }
+
+
+        if (!empty($search->getTags()))
+        {
+
+            $query->andWhere('c.id IN (:tags)')
+            ->setParameter('tags',$search->getTags());
+
+        }
+
+        $query->orderby('a.createdAt','DESC')
+        ->getQuery();
+
+        return $this->paginator->paginate(
+            $query,
+            $search->getPage(),
+            6
+        );
+    }
+    
 
     //    /**
     //     * @return Article[] Returns an array of Article objects

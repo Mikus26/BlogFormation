@@ -1,10 +1,10 @@
 <div class="blog-card">
 	<a href="{{ path('app.article.show', {slug: article.slug}) }}" class="link-img">
-		{% if article.imageName %}
-			<img src="{{ vich_uploader_asset(article) }}" alt="{{ article.titre }}" class="blog-card-img" loading="lazy">
+		{% for image in article.images |slice(0,1) %}
+			<img src="{{ vich_uploader_asset(image) }}" alt="{{ article.titre }}" class="blog-card-img" loading="lazy">
 		{% else %}
 			<img src="https://picsum.photos/350/250" alt="{{ article.titre }}" class="blog-card-img" loading="lazy">
-		{% endif %}
+		{% endfor %}
 	</a>
 	<div class="blog-card-content">
 		<p class="blog-card-date text-muted">{{ article.createdAt|format_datetime('full', 'none') }}</p>

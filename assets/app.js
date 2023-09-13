@@ -20,3 +20,6 @@ require('bootstrap');
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');
 
+import { Filter } from './js/filter';
+
+new Filter(document.querySelector(".js-filter"));

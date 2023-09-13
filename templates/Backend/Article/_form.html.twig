@@ -1,6 +1,36 @@
 {{ form_start(form, {'attr': {'class': 'card p-3 w-75 mx-auto'}}) }}
-{{ form_widget(form) }}
+
+<div class="row">
+	<div class="col-md-6">
+		{{ form_row (form.titre) }}
+	</div>
+	<div class="col-md-6">
+		{{ form_row(form.actif) }}</div>
+</div>
+
+{{ form_row(form.categories) }}
+{{ form_row(form.contenu) }}
+
+{{ form_label (form.images) }}
+<div class="text-start mb-3">
+
+	<button type="button" class="add_item_link btn btn-primary" data-collection-holder-class="images">Add an image</button>
+</div>
+<ul class="images row" data-index="{{ form.images|length > 0 ? form.images|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}">
+
+	{% for image in form.images %}
+		
+		<li class="col-md-4 ">
+		<button type="button" class="btn btn-danger btn-remove-collection">
+			<i class="bi bi-x-octagon-fill"></i>
+		</button>
+		{{ form_row(image) }}</li>
+	{% endfor %}
+</ul>
+
+
 <div class="text-center">
 	<button type="submit" class="btn btn-secondary">{{ button_label|default('save') }}</button>
 </div>
-{{ form_end(form) }}
+{{ form_row(form_token) }}
+{{ form_end(form, {render_rest:false}) }}
